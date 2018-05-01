@@ -26,7 +26,7 @@ def main():
     # ユーザーの番
     print("あなたの番です")
     print("あなたの合計数は" +
-            str(player.sum_number()) + "です")
+            str(player.total_number()) + "です")
     while True:
         print("\nカードを引きますか？")
         print("[Y]: 引く")
@@ -41,9 +41,9 @@ def main():
         print("あなたの" + str(player.number_of_cards()) + "枚めは" + str(player.show_card(-1).get_mark()) + "の" + str(player.show_card(-1).get_number()) + "です")
 
         print("あなたの合計数は" +
-                str(player.sum_number()) + "です")
+                str(player.total_number()) + "です")
 
-        if player.sum_number() >= 22:
+        if player.total_number() >= 22:
             print("バーストしました。あなたの負けです")
             sys.exit()
 
@@ -51,29 +51,29 @@ def main():
     print("\nCPUの番です")
     print("CPUの" + str(dealer.number_of_cards()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
     print("CPUの合計数は" +
-            str(dealer.sum_number()) + "です")
+            str(dealer.total_number()) + "です")
     while True:
         # 17以上のときはカードを引かない
-        if dealer.sum_number() >= 17:
+        if dealer.total_number() >= 17:
             break
         dealer.draw_card(deck.pop())
         print("CPUの" + str(dealer.number_of_cards()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
 
         print("CPUの合計数は" +
-                str(dealer.sum_number()) + "です")
+                str(dealer.total_number()) + "です")
 
-        if dealer.sum_number() >= 22:
+        if dealer.total_number() >= 22:
             print("バーストしました。あなたの勝ちです")
             sys.exit()
 
     # 結果発表
     print("\nあなたの合計数は" +
-            str(player.sum_number()) + "です")
+            str(player.total_number()) + "です")
     print("CPUの合計数は" +
-            str(dealer.sum_number()) + "です")
-    if player.sum_number() > dealer.sum_number():
+            str(dealer.total_number()) + "です")
+    if player.total_number() > dealer.total_number():
         print("あなたの勝ちです")
-    elif player.sum_number() < dealer.sum_number():
+    elif player.total_number() < dealer.total_number():
         print("CPUの勝ちです")
     else:
         print("引き分けです")
