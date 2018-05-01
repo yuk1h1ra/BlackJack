@@ -1,97 +1,79 @@
 from Deck import Deck
 from Card import Card
+from Person import Person
 import sys
-
-def sum_number(cards):
-    sum_num = 0
-    count_A = 0
-    for card in cards:
-        if card.num == 1:
-            count_A += 1
-            sum_num += 11
-        elif card.num >= 10:
-            sum_num += 10
-        else:
-            sum_num += card.num
-    for i in range(count_A):
-        if sum_num <= 21:
-            break
-        sum_num -= 10
-    return sum_num
 
 def main():
     deck = Deck()
-    user_cards = []
-    dealer_cards = []
+    player = Person()
+    dealer = Person()
 
     deck.shuffle()
 
     print("これからBJを始めます\n")
 
     # 初期セットアップ
-    user_cards.append(deck.pop())
-    print("あなたの1枚めは" + str(user_cards[0].get_mark()) + "の" + str(user_cards[0].get_number()) + "です")
-    user_cards.append(deck.pop())
-    print("あなたの2枚めは" + str(user_cards[1].get_mark()) + "の" + str(user_cards[1].get_number()) + "です")
+    player.draw_card(deck.pop())
+    print("あなたの1枚めは" + str(player.show_card(0).get_mark()) + "の" + str(player.show_card(0).get_number()) + "です")
+    player.draw_card(deck.pop())
+    print("あなたの2枚めは" + str(player.show_card(1).get_mark()) + "の" + str(player.show_card(1).get_number()) + "です")
 
-    dealer_cards.append(deck.pop())
-    print("CPUの1枚めは" + str(dealer_cards[0].get_mark()) + "の" + str(dealer_cards[0].get_number()) + "です")
-    dealer_cards.append(deck.pop())
+    dealer.draw_card(deck.pop())
+    print("CPUの1枚めは" + str(dealer.show_card(0).get_mark()) + "の" + str(dealer.show_card(0).get_number()) + "です")
+    dealer.draw_card(deck.pop())
     print("CPUの2枚めは伏せられています")
-
-    print("あなたの合計数は" +
-            str(sum_number(user_cards)) + "です")
 
     # ユーザーの番
     print("あなたの番です")
+    print("あなたの合計数は" +
+            str(player.sum_number()) + "です")
     while True:
         print("\nカードを引きますか？")
-        print("[0]: 引く")
-        print("[1]: 引かない")
+        print("[Y]: 引く")
+        print("[N]: 引かない")
 
-        input_line = int(input())
+        input_line = input()
         # Loopを抜ける
-        if input_line == 1:
+        if input_line == "N":
             break
 
-        user_cards.append(deck.pop())
-        print("あなたの" + str(len(user_cards)) + "枚めは" + str(user_cards[-1].get_mark()) + "の" + str(user_cards[-1].get_number()) + "です")
+        player.draw_card(deck.pop())
+        print("あなたの" + str(player.cards_number()) + "枚めは" + str(player.show_card(-1).get_mark()) + "の" + str(player.show_card(-1).get_number()) + "です")
 
         print("あなたの合計数は" +
-                str(sum_number(user_cards)) + "です")
+                str(player.sum_number()) + "です")
 
-        if sum_number(user_cards) >= 22:
+        if player.sum_number() >= 22:
             print("バーストしました。あなたの負けです")
             sys.exit()
 
-    # CPUのカード引き
-    print("CPUの番です")
-    print("CPUの" + str(len(dealer_cards)) + "枚めは" + str(dealer_cards[-1].get_mark()) + "の" + str(dealer_cards[-1].get_number()) + "です")
+    # ディーラーの番
+    print("\nCPUの番です")
+    print("CPUの" + str(dealer.cards_number()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
     print("CPUの合計数は" +
-            str(sum_number(dealer_cards)) + "です")
+            str(dealer.sum_number()) + "です")
     while True:
         # 17以上のときはカードを引かない
-        if sum_number(dealer_cards) >= 17:
+        if dealer.sum_number() >= 17:
             break
-
-        dealer_cards.append(deck.pop())
-        print("CPUの" + str(len(dealer_cards)) + "枚めは" + str(dealer_cards[-1].get_mark()) + "の" + str(dealer_cards[-1].get_number()) + "です")
+        dealer.draw_card(deck.pop())
+        print("CPUの" + str(dealer.cards_number()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
 
         print("CPUの合計数は" +
-                str(sum_number(dealer_cards)) + "です")
+                str(dealer.sum_number()) + "です")
 
-        if sum_number(dealer_cards) >= 22:
+        if dealer.sum_number() >= 22:
             print("バーストしました。あなたの勝ちです")
             sys.exit()
 
     # 結果発表
-    print("あなたの合計数は" +
-            str(sum_number(user_cards)) + "です")
+    print("\nあなたの合計数は" +
+            str(player.sum_number()) + "です")
     print("CPUの合計数は" +
-            str(sum_number(dealer_cards)) + "です")
-    if sum_number(user_cards) > sum_number(dealer_cards):
+            str(dealer.sum_number()) + "です")
+    if player.sum_number() > dealer.sum_number():
         print("あなたの勝ちです")
-    elif sum_number(user_cards) < sum_number(dealer_cards):
+    elif player.sum_number() < dealer.sum_number():
         print("CPUの勝ちです")
     else:
         print("引き分けです")
