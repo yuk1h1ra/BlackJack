@@ -12,7 +12,16 @@ class Card:
         return self.mark.name
 
     def get_number(self):
-        return self.num
+        this_num = self.num
+        if this_num == 1:
+            this_num = 'A'
+        elif this_num == 11:
+            this_num = 'J'
+        elif this_num == 12:
+            this_num = 'Q'
+        elif this_num == 13:
+            this_num = 'K'
+        return this_num
 
 class Mark(Enum):
     SPADE = 1
