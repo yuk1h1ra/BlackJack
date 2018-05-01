@@ -27,5 +27,5 @@ class Person:
             sum_num -= 10
         return sum_num
 
-    def cards_number(self):
+    def number_of_cards(self):
         return len(self.cards)

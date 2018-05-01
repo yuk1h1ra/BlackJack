@@ -38,7 +38,7 @@ def main():
             break
 
         player.draw_card(deck.pop())
-        print("あなたの" + str(player.cards_number()) + "枚めは" + str(player.show_card(-1).get_mark()) + "の" + str(player.show_card(-1).get_number()) + "です")
+        print("あなたの" + str(player.number_of_cards()) + "枚めは" + str(player.show_card(-1).get_mark()) + "の" + str(player.show_card(-1).get_number()) + "です")
 
         print("あなたの合計数は" +
                 str(player.sum_number()) + "です")
@@ -49,7 +49,7 @@ def main():
 
     # ディーラーの番
     print("\nCPUの番です")
-    print("CPUの" + str(dealer.cards_number()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
+    print("CPUの" + str(dealer.number_of_cards()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
     print("CPUの合計数は" +
             str(dealer.sum_number()) + "です")
     while True:
@@ -57,7 +57,7 @@ def main():
         if dealer.sum_number() >= 17:
             break
         dealer.draw_card(deck.pop())
-        print("CPUの" + str(dealer.cards_number()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
+        print("CPUの" + str(dealer.number_of_cards()) + "枚めは" + str(dealer.show_card(-1).get_mark()) + "の" + str(dealer.show_card(-1).get_number()) + "です")
 
         print("CPUの合計数は" +
                 str(dealer.sum_number()) + "です")
