@@ -5,9 +5,6 @@ class Card:
         self.mark = Mark[a_mark]
         self.num = a_num
 
-    def show(self):
-        return self.mark.name, self.num
-
     def get_mark(self):
         return self.mark.name
 
